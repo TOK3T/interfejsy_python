@@ -9,6 +9,7 @@ PORT_RPI = 5005          # Odczyty z Pico i nasłuch na telefonie
 PORT_PICO = 5006         # Sterowanie odbierane przez Pico
 PORT_TELEFON = 5005      # Port odbioru danych w aplikacji Flutter
 PORT_STEROWANIA = 5006   # Port odbioru sterowania od aplikacji Flutter
+IP_ROZGLOSZENIA = "192.168.1.255"
 MAX_PAKIET = 1024
 ODSTEP_WYKRYWANIA = 2
 
@@ -142,7 +143,7 @@ def _wysylaj_wykrywanie_pi():
     wiadomosc = json.dumps({"typ": "wykryj_pi"}).encode("utf-8")
     while True:
         try:
-            _sock_odbior.sendto(wiadomosc, ("255.255.255.255", PORT_PICO))
+            _sock_odbior.sendto(wiadomosc, (IP_ROZGLOSZENIA, PORT_PICO))
         except OSError as error:
             print(f"[CONNECT] Błąd rozgłaszania adresu Pi: {error}")
         time.sleep(ODSTEP_WYKRYWANIA)
